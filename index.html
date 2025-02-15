@@ -3,10 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock-Paper-Scissors</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <script src="app.js"></script>
+    <div id="game-container">
+        <div id="game-logo">
+            <h1>Rock-Paper-Scissors</h1>
+        </div>
+
+        <div id="game-area">
+
+            <div id="choice-container" class="content">
+                <div id="player-choiceboard" class="choiceboard">
+
+                    <div id="rock" class="card">
+                        <button>
+                            <img src="rock-image.jpg" alt="rock-choice" height="100px" width="100px">
+                            <p class="caption">Rock</p>
+                        </button>
+                    </div>
+                    <div id="paper" class="card">
+                        <button>
+                            <img src="paper-image.webp" alt="paper-choice" height="100px" width="100px">
+                            <p class="caption">Paper</p>
+                        </button>
+                    </div>
+                    <div id="scissors" class="card">
+                        <button>
+                            <img src="scissors-image.png" alt="scissors-choice" height="100px" width="100px">
+                            <p class="caption">Scissors</p>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div id="computer-choiceboard" class="choiceboard">
+
+                    <div id="random" class="card">
+                        <button>
+                            <img src="computer-image.jpg" alt="computer-choice">
+                            <p class="caption">Computer</p>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="scoreboard" class="content">
+                <div id="player-score" class="score-card">
+                    <p>Player Score : </p>
+                </div>
+                <div id="computer-score" class="score-card">
+                    <p>Computer Score :</p>
+                </div>
+            </div>
+
+            <div id="resultboard" class="content">
+                <p>Total number of rounds = 5</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
