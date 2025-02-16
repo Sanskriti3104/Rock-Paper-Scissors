@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +9,12 @@
     <link href='https://fonts.googleapis.com/css?family=Capriola' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div id="game-container">
         <div id="game-logo">
             <h1>Rock-Paper-Scissors</h1>
+            <p>Battle against the computer in Rock-Paper-Scissors! The first to reach 5 points wins.</p>
         </div>
 
         <div id="game-area">
@@ -21,7 +24,7 @@
 
                     <div id="rock" class="card">
                         <button>
-                            <img src="rock-image.jpg" alt="rock-choice" height="100px" width="100px">
+                            <img src="rock-image.png" alt="rock-choice" height="100px" width="100px">
                             <p class="caption">Rock</p>
                         </button>
                     </div>
@@ -44,7 +47,7 @@
 
                     <div id="random" class="card">
                         <button>
-                            <img src="computer-image.jpg" alt="computer-choice" height="100px" width="100px">
+                            <img src="computer-image.png" alt="computer-choice" height="100px" width="100px">
                             <p class="caption">Computer</p>
                         </button>
                     </div>
@@ -54,26 +57,27 @@
 
             <div id="scoreboard" class="content">
                 <div id="player-score" class="score-card">
-                    <p>Player Score :  
-                        <span id="display-playerScore">
+                    <p>Player Score :
+                        <span id="display-playerScore">0
                         </span>
                     </p>
                 </div>
                 <div id="computer-score" class="score-card">
-                    <p>Computer Score : 
-                        <span id="display-computerScore">
+                    <p>Computer Score :
+                        <span id="display-computerScore">0
                         </span>
                     </p>
                 </div>
             </div>
-
-            <div id="resultboard" class="content">
-                <p>Total number of rounds = 5</p>
-                <span id="display-result"></span>
-            </div>
+        </div>
+    </div>
+    <div id="resultboard" class="content">
+        <div class="popup">
+            <span id="popup-result" class="popup-text"></span>
         </div>
     </div>
 
     <script src="app.js"></script>
 </body>
+
 </html>

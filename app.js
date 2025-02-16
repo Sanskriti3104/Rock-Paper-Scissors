@@ -1,11 +1,10 @@
 let playerScore = 0;
-let computerScore = 0;
-let roundCount = 0;
-const maxRounds = 5;
+let computerScore = 0;;
 
 // Change the computer's displayed image
-function changeImage(displayImage) {
+function changeImage(displayImage,choice) {
     document.querySelector("#random img").src = displayImage;
+    document.querySelector("#random p").textContent = choice;
 }
 
 // Generate computer choice
@@ -13,14 +12,31 @@ function generateChoice() {
     let value = Math.floor(Math.random() * 3); // 0, 1, 2
 
     let choice = (value === 0) ? "rock" : (value === 1) ? "paper" : "scissors";
-    let image = (choice === "rock") ? "rock-image.jpg" : (choice === "paper") ? "paper-image.webp" : "scissors-image.png";
-    
-    changeImage(image);
+    let image = (choice === "rock") ? "rock-image.png" : (choice === "paper") ? "paper-image.webp" : "scissors-image.png";
+
+    changeImage(image,choice);
     return choice;
+}
+
+//Show popup with result
+function showPopup(message) {
+    let popup = document.getElementById("popup-result");
+    let resultBoard = document.getElementById("resultboard");
+    popup.textContent = message;
+    resultBoard.classList.add("active");
+    popup.classList.add("show");
+
+    // Hide popup after 3 seconds
+    setTimeout(() => {
+        resultBoard.classList.remove("active");
+        popup.classList.remove("show");
+    }, 3000);
 }
 
 // Game logic
 function playRound(playerChoice, computerChoice) {
+    if (playerScore === 5 || computerScore === 5) return; // Stop game if already won
+
     if (playerChoice !== computerChoice) {
         if (
             (playerChoice === "rock" && computerChoice === "scissors") ||
@@ -33,26 +49,20 @@ function playRound(playerChoice, computerChoice) {
         }
     }
 
-    roundCount++;
+    if (playerScore === 5 || computerScore === 5) {
+        showPopup(playerScore === 5 ? "🎉 You win the game!" : "💻 Computer wins!");
 
-    if (roundCount === maxRounds) {
-        if (playerScore > computerScore) {
-            document.getElementById("display-result").textContent = "🎉 You win the game!";
-        } else if (playerScore < computerScore) {
-            document.getElementById("display-result").textContent = "💻 Computer wins!";
-        } else {
-            document.getElementById("display-result").textContent = "😐 It's a tie!";
-        }
+        document.querySelectorAll(".card button").forEach(button => {
+            button.disabled = true;
+        });
     }
 }
 
 // Handle Player Choice
 function handleChoice(event) {
-    if (roundCount < maxRounds) {
-        let playerChoice = event.currentTarget.parentElement.id; // Get parent div's id
-        let computerChoice = generateChoice();
-        playRound(playerChoice, computerChoice);
-    }
+    let playerChoice = event.currentTarget.parentElement.id; // Get parent div's id
+    let computerChoice = generateChoice();
+    playRound(playerChoice, computerChoice);
 }
 
 // Attach event listeners to buttons inside cards
