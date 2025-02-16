@@ -5,8 +5,9 @@
     box-sizing: border-box;
 }
 
-/* Body Styling */
 body {
+    background-color: #121212; /* Dark background */
+    color: #d3d3d3; /* Light text */
     font-family: 'Arial', sans-serif;
     height: 100vh;
     margin: 0;
@@ -25,6 +26,12 @@ body {
     align-items: center;
     margin: 20px;
     padding: 3px;
+}
+
+#game-logo h1{
+    color: #ffffff; /* White logo text */
+    font-family: 'Caesar Dressing';
+    font-size: 70px;
 }
 
 #game-area{
@@ -49,15 +56,17 @@ body {
 
 .choiceboard{
     width: 30%;
-     /* Add shadows to create the "card" effect */
+    background-color: #1e1e1e; /* Dark card background */
+    border-radius: 10px; /* Rounded corners */
+    /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
 }
 
 .choiceboard .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    background-color: #292929; /* Slightly lighter */
 }
-
 
 .card{
     display: flex;
@@ -72,6 +81,7 @@ button {
     padding: 10px; 
     margin: 10px; 
     cursor: pointer; /* Keeps button behavior */
+    color: #ffffff; /* White text */
 }
 
 #computer-choiceboard{
@@ -97,4 +107,9 @@ button {
 
 resultboard p{
     align-items: center;
+}
+
+p{
+    font-family: 'Capriola';
+    font-size: 22px;
 }

@@ -1,70 +1,61 @@
-//Rock Paper Scissor Game
-console.log("Rock Paper Scissors Game !!");
-
-//Number of Rounds
-let round = Number(prompt("Enter number of rounds you want to play"));
-
-console.log(`Number of round = ${round}`);
-
-//Variables to store score
-let humanScore = 0;
+let playerScore = 0;
 let computerScore = 0;
+let roundCount = 0;
+const maxRounds = 5;
 
-
-//Generate computer choices
-function generateChoice(){
-    // Generates a number between 1 and 3
-    let value = Math.floor(Math.random() * 3)+1;
-
-    //Assign choices to the numbers
-    return (value == 1) ? "rock" : (value == 2) ? "paper" : "scissors";
-
+// Change the computer's displayed image
+function changeImage(displayImage) {
+    document.querySelector("#random img").src = displayImage;
 }
 
-//Game's logic
-function playRound(humanChoice,computerChoice){
+// Generate computer choice
+function generateChoice() {
+    let value = Math.floor(Math.random() * 3); // 0, 1, 2
 
-    if(humanChoice === computerChoice){
-        console.log("Round Tie");
-    }else{
+    let choice = (value === 0) ? "rock" : (value === 1) ? "paper" : "scissors";
+    let image = (choice === "rock") ? "rock-image.jpg" : (choice === "paper") ? "paper-image.webp" : "scissors-image.png";
+    
+    changeImage(image);
+    return choice;
+}
 
-        if((humanChoice === "rock" && computerChoice === "scissors") 
-        || (humanChoice === "paper" && computerChoice === "rock")
-        || (humanChoice === "scissors" && computerChoice === "paper")){
-            humanScore++
-        }else{
-            computerScore++;
+// Game logic
+function playRound(playerChoice, computerChoice) {
+    if (playerChoice !== computerChoice) {
+        if (
+            (playerChoice === "rock" && computerChoice === "scissors") ||
+            (playerChoice === "paper" && computerChoice === "rock") ||
+            (playerChoice === "scissors" && computerChoice === "paper")
+        ) {
+            document.getElementById("display-playerScore").textContent = ++playerScore;
+        } else {
+            document.getElementById("display-computerScore").textContent = ++computerScore;
         }
+    }
 
+    roundCount++;
+
+    if (roundCount === maxRounds) {
+        if (playerScore > computerScore) {
+            document.getElementById("display-result").textContent = "🎉 You win the game!";
+        } else if (playerScore < computerScore) {
+            document.getElementById("display-result").textContent = "💻 Computer wins!";
+        } else {
+            document.getElementById("display-result").textContent = "😐 It's a tie!";
+        }
     }
 }
 
-
-//Play the game
-for(let i=0; i<round; i++){
-
-    console.log("Enter your choice : Rock,Paper,Scissors or quit to exit ");
-    let humanChoice = prompt("Enter your choice : Rock,Paper,Scissor  or quit to exit ").toLowerCase();
-    console.log(`Your's choice = ${humanChoice}`);
-
-    if(humanChoice === "quit"){
-        break;
+// Handle Player Choice
+function handleChoice(event) {
+    if (roundCount < maxRounds) {
+        let playerChoice = event.currentTarget.parentElement.id; // Get parent div's id
+        let computerChoice = generateChoice();
+        playRound(playerChoice, computerChoice);
     }
-
-    let computerChoice = generateChoice();
-    console.log(`Computer's choice = ${computerChoice}`);
-
-    playRound(humanChoice,computerChoice);
-
 }
 
-//Final Score Declaration
-console.log(`Final Score -> You: ${humanScore}, Computer: ${computerScore}`);
-
-if (humanScore > computerScore) {
-    console.log("You Win !! Congrats.");
-} else if (humanScore < computerScore) {
-    console.log("You Lose !!");
-} else {
-    console.log("It's a Tie !!");
-}
+// Attach event listeners to buttons inside cards
+document.querySelectorAll(".card button").forEach(button => {
+    button.addEventListener("click", handleChoice);
+});
