@@ -1,10 +1,18 @@
 let playerScore = 0;
 let computerScore = 0;
 
-// Change the computer's displayed image
-function changeImage(displayImage,choice) {
-    document.querySelector("#random img").src = displayImage;
-    document.querySelector("#random p").textContent = (choice === "rock") ? "Rock" : (choice === "paper") ? "Paper" : "Scissors";
+// Attach event listeners only to rock, paper, and scissors buttons
+document.querySelectorAll(".card button").forEach(button => {
+    if (["rock", "paper", "scissors"].includes(button.parentElement.id)) {
+        button.addEventListener("click", handleChoice);
+    }
+});
+
+// Handle Player Choice
+function handleChoice(event) {
+    let playerChoice = event.currentTarget.parentElement.id; 
+    let computerChoice = generateChoice();
+    playRound(playerChoice, computerChoice);
 }
 
 // Generate computer choice
@@ -12,30 +20,16 @@ function generateChoice() {
     let value = Math.floor(Math.random() * 3); 
 
     let choice = (value === 0) ? "rock" : (value === 1) ? "paper" : "scissors";
-    let image = (choice === "rock") ? "rock-image.png" : (choice === "paper") ? "paper-image.webp" : "scissors-image.png";
+    let image = (choice === "rock") ? "media/rock-image.png" : (choice === "paper") ? "media/paper-image.webp" : "media/scissors-image.png";
 
     changeImage(image,choice);
     return choice;
 }
 
-//Show popup with result
-function showPopup(message) {
-    let popup = document.getElementById("popup-result");
-    let resultBoard = document.getElementById("resultboard");
-    popup.textContent = message;
-    resultBoard.style.display = "flex";
-    resultBoard.classList.add("active");
-    popup.classList.add("show");
-
-    // Hide popup after 3 seconds
-    setTimeout(() => {
-        resultBoard.style.display = "none"; // Hide again
-        resultBoard.classList.remove("active");
-        popup.classList.remove("show");
-
-        resetGame();
-    }, 3000);
-
+// Change the computer's displayed image
+function changeImage(displayImage,choice) {
+    document.querySelector("#random img").src = displayImage;
+    document.querySelector("#random p").textContent = (choice === "rock") ? "Rock" : (choice === "paper") ? "Paper" : "Scissors";
 }
 
 // Game logic
@@ -63,19 +57,25 @@ function playRound(playerChoice, computerChoice) {
         });
     }
 }
+//Show popup with result
+function showPopup(message) {
+    let popup = document.getElementById("popup-result");
+    let resultBoard = document.getElementById("resultboard");
+    popup.textContent = message;
+    resultBoard.style.display = "flex";
+    resultBoard.classList.add("active");
+    popup.classList.add("show");
 
-// Handle Player Choice
-function handleChoice(event) {
-    let playerChoice = event.currentTarget.parentElement.id; 
-    let computerChoice = generateChoice();
-    playRound(playerChoice, computerChoice);
+    // Hide popup after 3 seconds
+    setTimeout(() => {
+        resultBoard.style.display = "none"; // Hide again
+        resultBoard.classList.remove("active");
+        popup.classList.remove("show");
+
+        resetGame();
+    }, 3000);
+
 }
-
-// Attach event listeners to buttons inside cards
-document.querySelectorAll(".card button").forEach(button => {
-    button.addEventListener("click", handleChoice);
-});
-
 document.getElementById("resetBtn").addEventListener("click", resetGame);
 
 function resetGame() {
@@ -85,7 +85,7 @@ function resetGame() {
 
     // Reset computer choice display
     document.getElementById("random").querySelector("p").textContent = "Computer";
-    document.getElementById("random").querySelector("img").src ="computer-image.png";
+    document.getElementById("random").querySelector("img").src ="media/computer-image.png";
 
     // Reset result popup text
     document.getElementById("popup-result").textContent = "";
